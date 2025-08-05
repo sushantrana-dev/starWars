@@ -1,49 +1,54 @@
 import React from 'react';
-import { useRouteError } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaExclamationTriangle, FaRedo, FaHome } from 'react-icons/fa';
-import Button from '@/components/atoms/Button/Button';
-import { formatApiError } from '@/utils/api';
+import { useNavigate } from 'react-router-dom';
+import Button from '@/components/atoms/Button';
 
-interface RouteError {
-  status?: number;
-  statusText?: string;
-  data?: any;
-  message?: string;
+interface RouteErrorBoundaryProps {
+  error?: {
+    status?: number;
+    message?: string;
+    data?: any;
+  };
+  resetErrorBoundary?: () => void;
 }
 
-const RouteErrorBoundary: React.FC = () => {
-  const error = useRouteError() as RouteError;
-
-  const handleRetry = () => {
-    window.location.reload();
-  };
+const RouteErrorBoundary: React.FC<RouteErrorBoundaryProps> = ({
+  error,
+  resetErrorBoundary,
+}) => {
+  const navigate = useNavigate();
 
   const handleGoHome = () => {
-    window.location.href = '/';
+    navigate('/');
+  };
+
+  const handleRetry = () => {
+    if (resetErrorBoundary) {
+      resetErrorBoundary();
+    } else {
+      window.location.reload();
+    }
   };
 
   const getErrorMessage = () => {
-    if (error?.status === 404) {
-      return 'The page you are looking for does not exist. Please check the URL and try again.';
+    if (error?.status && error.status >= 500) {
+      return 'Something went wrong on our end. Please try again later.';
     }
-    if (error?.status >= 500) {
-      return 'Server error. Please try again later.';
+    if (error?.status && error.status >= 400) {
+      return 'The page you\'re looking for doesn\'t exist or you don\'t have permission to access it.';
     }
-    if (error?.status >= 400) {
-      return 'Bad request. Please check your input.';
-    }
-    return formatApiError(error) || 'An unexpected error occurred.';
+    return 'An unexpected error occurred. Please try again.';
   };
 
   const getErrorTitle = () => {
     if (error?.status === 404) {
       return 'Page Not Found';
     }
-    if (error?.status >= 500) {
+    if (error?.status && error.status >= 500) {
       return 'Server Error';
     }
-    if (error?.status >= 400) {
+    if (error?.status && error.status >= 400) {
       return 'Bad Request';
     }
     return 'Something went wrong';

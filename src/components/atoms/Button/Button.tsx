@@ -63,8 +63,8 @@ const Button: React.FC<ButtonProps> = ({
     className,
   ].join(' ');
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (!isDisabled && onClick) {
+  const handleClick = () => {
+    if (onClick) {
       onClick();
     }
   };

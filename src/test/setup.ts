@@ -37,6 +37,7 @@ Object.defineProperty(window, 'scrollTo', {
   value: () => {},
 });
 
+
 // Mock fetch
 global.fetch = jest.fn();
 
@@ -59,7 +60,7 @@ jest.mock('@reduxjs/toolkit/query/react', () => ({
   ...jest.requireActual('@reduxjs/toolkit/query/react'),
   createApi: jest.fn(() => ({
     reducerPath: 'mockApi',
-    reducer: (state = {}, action: any) => state,
+    reducer: (state = {}) => state,
     middleware: () => (next: any) => (action: any) => next(action),
     useGetMoviesQuery: jest.fn(),
     useGetMovieByIdQuery: jest.fn(),

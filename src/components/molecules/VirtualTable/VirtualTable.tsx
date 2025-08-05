@@ -17,10 +17,11 @@ export interface VirtualTableProps<T> {
   data: T[];
   columns: Column<T>[];
   height?: number;
-  itemHeight?: number;
-  onRowClick?: (item: T) => void;
-  selectedId?: string;
   className?: string;
+  onRowClick?: (item: T) => void;
+  loading?: boolean;
+  emptyMessage?: string;
+  selectedId?: string;
   sortConfig?: {
     key: keyof T;
     direction: 'asc' | 'desc';
@@ -32,7 +33,6 @@ const VirtualTable = <T extends { id: string }>({
   data,
   columns,
   height = 600,
-  itemHeight = 60,
   onRowClick,
   selectedId,
   className = '',
@@ -81,7 +81,7 @@ const VirtualTable = <T extends { id: string }>({
 
       {/* Table Body */}
       <div className="overflow-y-auto" style={{ height }}>
-        {data.map((item, index) => {
+        {data.map((item) => {
           const isSelected = selectedId === item.id;
           
           return (

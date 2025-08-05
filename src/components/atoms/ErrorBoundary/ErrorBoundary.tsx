@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { FaExclamationTriangle, FaRedo, FaHome } from 'react-icons/fa';
 import Button from '../Button/Button';

@@ -1,7 +1,7 @@
 import React from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-interface CardProps extends HTMLMotionProps<'div'> {
+interface CardProps {
   children: React.ReactNode;
   variant?: 'default' | 'elevated' | 'outlined' | 'glass';
   size?: 'sm' | 'md' | 'lg';
@@ -9,6 +9,7 @@ interface CardProps extends HTMLMotionProps<'div'> {
   interactive?: boolean;
   className?: string;
   onClick?: () => void;
+  style?: React.CSSProperties;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -19,7 +20,7 @@ const Card: React.FC<CardProps> = ({
   interactive = false,
   className = '',
   onClick,
-  ...props
+  style,
 }) => {
   const baseClasses = 'rounded-xl transition-all duration-200 theme-transition';
   
@@ -41,18 +42,24 @@ const Card: React.FC<CardProps> = ({
 
   const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${interactiveClasses} ${hoverClasses} ${className}`;
 
-  const MotionComponent = interactive || onClick ? motion.div : 'div';
+  if (interactive || onClick) {
+    return (
+      <motion.div
+        className={classes}
+        onClick={onClick}
+        style={style}
+        whileHover={hover ? { y: -2 } : undefined}
+        whileTap={interactive ? { scale: 0.98 } : undefined}
+      >
+        {children}
+      </motion.div>
+    );
+  }
 
   return (
-    <MotionComponent
-      className={classes}
-      onClick={onClick}
-      whileHover={hover ? { y: -2 } : undefined}
-      whileTap={interactive ? { scale: 0.98 } : undefined}
-      {...props}
-    >
+    <div className={classes} style={style}>
       {children}
-    </MotionComponent>
+    </div>
   );
 };
 

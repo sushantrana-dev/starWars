@@ -73,7 +73,9 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           icon={FaTimes}
           onClick={onClose}
           aria-label="Close filters"
-        />
+        >
+          Close
+        </Button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
