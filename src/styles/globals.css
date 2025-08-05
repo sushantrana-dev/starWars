@@ -1,0 +1,392 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Starjedi';
+  src: url('/fonts/Starjedi.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Theme CSS Variables */
+:root {
+  /* Dark Theme (default) */
+  --background-primary: #0a0a0a;
+  --background-secondary: #1a1a1a;
+  --background-card: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-muted: #9ca3af;
+  --border-primary: #374151;
+  --border-secondary: #4b5563;
+  --primary-gold: #ffd700;
+  --primary-blue: #3b82f6;
+  --primary-red: #ef4444;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --skeleton-color: #374151;
+}
+
+[data-theme="light"] {
+  /* Light Theme - Improved for better contrast and less stark appearance */
+  --background-primary: #f8fafc;
+  --background-secondary: #f1f5f9;
+  --background-card: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-primary: #e2e8f0;
+  --border-secondary: #cbd5e1;
+  --primary-gold: #f59e0b;
+  --primary-blue: #3b82f6;
+  --primary-red: #ef4444;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --skeleton-color: #e5e7eb;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-gold text-primary-dark font-semibold py-2 px-4 rounded-lg 
+           hover:bg-yellow-400 transition-colors duration-200 focus:outline-none 
+           focus:ring-2 focus:ring-primary-gold focus:ring-opacity-50;
+  }
+
+  .btn-secondary {
+    @apply bg-background-card text-white font-semibold py-2 px-4 rounded-lg 
+           hover:bg-gray-700 transition-colors duration-200 focus:outline-none 
+           focus:ring-2 focus:ring-primary-blue focus:ring-opacity-50;
+  }
+
+  .card {
+    @apply bg-background-card rounded-lg p-6 shadow-lg border border-gray-800 
+           hover:border-primary-gold transition-all duration-200;
+  }
+
+  .heading {
+    @apply font-star-wars text-primary-gold text-2xl font-bold;
+  }
+
+  .subheading {
+    @apply font-semibold text-lg text-white;
+  }
+
+  .body-text {
+    @apply text-base text-gray-300;
+  }
+
+  .caption {
+    @apply text-sm text-gray-500;
+  }
+
+  /* Theme-aware components */
+  .theme-card {
+    background-color: var(--background-card);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px var(--shadow-color);
+    border-radius: 0.5rem;
+  }
+
+  .theme-card:hover {
+    border-color: var(--primary-gold);
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
+
+  .theme-text-primary {
+    color: var(--text-primary);
+  }
+
+  .theme-text-secondary {
+    color: var(--text-secondary);
+  }
+
+  .theme-text-muted {
+    color: var(--text-muted);
+  }
+
+  .theme-border {
+    border-color: var(--border-primary);
+  }
+
+  .border-border-primary {
+    border-color: var(--border-primary);
+  }
+
+  .border-border-secondary {
+    border-color: var(--border-secondary);
+  }
+
+  .theme-bg-primary {
+    background-color: var(--background-primary);
+  }
+
+  .theme-bg-secondary {
+    background-color: var(--background-secondary);
+  }
+
+  .theme-bg-card {
+    background-color: var(--background-card);
+  }
+
+  .bg-skeleton {
+    background-color: var(--skeleton-color);
+  }
+
+  /* Light theme specific overrides */
+  [data-theme="light"] .btn-secondary {
+    @apply bg-slate-700 text-white hover:bg-slate-600;
+  }
+
+  /* Skeleton theme overrides */
+  [data-theme="light"] .bg-skeleton {
+    background-color: var(--skeleton-color);
+  }
+
+  [data-theme="light"] .animate-skeleton-pulse {
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  [data-theme="light"] .subheading {
+    @apply text-slate-800;
+  }
+
+  [data-theme="light"] .body-text {
+    @apply text-slate-600;
+  }
+
+  [data-theme="light"] .caption {
+    @apply text-slate-500;
+  }
+
+  /* Additional light theme improvements */
+  [data-theme="light"] .theme-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="light"] .theme-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  [data-theme="light"] input {
+    background-color: var(--background-secondary);
+    border-color: var(--border-primary);
+    color: var(--text-primary);
+  }
+
+  [data-theme="light"] input:focus {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  }
+
+  [data-theme="light"] select {
+    background-color: var(--background-secondary);
+    border-color: var(--border-primary);
+    color: var(--text-primary);
+  }
+
+  [data-theme="light"] select:focus {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+  }
+
+  /* Ensure proper text contrast in light theme */
+  [data-theme="light"] .text-gray-300 {
+    color: var(--text-secondary);
+  }
+
+  [data-theme="light"] .text-gray-400 {
+    color: var(--text-muted);
+  }
+
+  [data-theme="light"] .text-gray-500 {
+    color: var(--text-muted);
+  }
+
+  [data-theme="light"] .border-gray-700 {
+    border-color: var(--border-primary);
+  }
+
+  [data-theme="light"] .border-gray-800 {
+    border-color: var(--border-secondary);
+  }
+
+  [data-theme="light"] .hover\:bg-gray-700:hover {
+    background-color: var(--border-secondary);
+  }
+
+  /* Custom select styling */
+  select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  [data-theme="light"] select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23475569' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  }
+
+  /* Filter panel improvements */
+  .filter-panel {
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-primary);
+  }
+
+  [data-theme="light"] .filter-panel {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: var(--border-secondary);
+  }
+
+  /* Enhanced animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+  }
+
+  /* Skeleton animation */
+  @keyframes skeleton-pulse {
+    0%, 100% { 
+      opacity: 1;
+      background-color: var(--skeleton-color);
+    }
+    50% { 
+      opacity: 0.7;
+      background-color: var(--skeleton-color);
+    }
+  }
+
+  .animate-skeleton-pulse {
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  /* Enhanced gradients */
+  .bg-gradient-star-wars {
+    background: linear-gradient(135deg, var(--background-primary) 0%, var(--background-secondary) 50%, var(--background-primary) 100%);
+  }
+
+  /* Enhanced shadows */
+  .shadow-star-wars {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.1);
+  }
+
+  [data-theme="light"] .shadow-star-wars {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 20px rgba(245, 158, 11, 0.1);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-lightsaber {
+    animation: lightsaber 1s ease-in-out infinite;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Theme transition utilities */
+  .theme-transition {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  /* Smooth skeleton transitions */
+  .bg-skeleton {
+    transition: background-color 0.3s ease;
+  }
+
+  /* Responsive utilities */
+  .responsive-container {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .responsive-text {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+
+  .responsive-heading {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+  }
+
+  /* Mobile-first responsive table */
+  .responsive-table {
+    @apply w-full overflow-x-auto;
+  }
+
+  .responsive-table-container {
+    @apply min-w-full;
+  }
+
+  /* Responsive card improvements */
+  .responsive-card {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+
+  /* Responsive spacing */
+  .responsive-space-y {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+  }
+
+  .responsive-gap {
+    @apply gap-3 sm:gap-4 lg:gap-6;
+  }
+} 
