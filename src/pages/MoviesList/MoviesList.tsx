@@ -238,7 +238,7 @@ const MoviesList: React.FC = () => {
             Star Wars Movies
           </h1> */}
           <p className='body-text theme-text-muted text-base md:text-lg max-w-2xl mx-auto leading-relaxed'>
-            Explore {stats.totalMovies} movies from the Star Wars universe
+            Explore {stats.totalMovies} Episodes from the Star Wars universe
           </p>
           
           {/* Decorative elements */}
@@ -269,7 +269,7 @@ const MoviesList: React.FC = () => {
         className='grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6'
       >
         <StatsCard
-          title="Movies"
+          title="Episodes"
           value={stats.totalMovies}
           color="gold"
           delay={0}
@@ -320,9 +320,10 @@ const MoviesList: React.FC = () => {
           </Button>
         </div>
 
-        {/* Filter Panel */}
-        <FilterPanel
-          isOpen={showFilters}
+        
+      </motion.div>
+{/* Filter Panel */}
+        {showFilters && <FilterPanel
           onClose={() => setShowFilters(false)}
           filters={filterValues}
           onFilterChange={handleFilterChange}
@@ -333,9 +334,7 @@ const MoviesList: React.FC = () => {
             producers: stats.producers,
             years: stats.years,
           }}
-        />
-      </motion.div>
-
+        />}
       {/* Table */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}

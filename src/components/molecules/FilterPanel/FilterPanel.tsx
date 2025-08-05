@@ -10,7 +10,6 @@ interface FilterOption {
 }
 
 interface FilterPanelProps {
-  isOpen: boolean;
   onClose: () => void;
   filters: {
     director: string;
@@ -29,7 +28,6 @@ interface FilterPanelProps {
 }
 
 const FilterPanel: React.FC<FilterPanelProps> = ({
-  isOpen,
   onClose,
   filters,
   onFilterChange,
@@ -53,13 +51,10 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
     ...options.years.map(year => ({ value: year, label: year }))
   ];
 
-  if (!isOpen) return null;
+
 
   return (
-    <motion.div
-      initial={{ opacity: 0, height: 0 }}
-      animate={{ opacity: 1, height: 'auto' }}
-      exit={{ opacity: 0, height: 0 }}
+    <div
       className={`theme-card p-6 border-2 border-primary-gold border-opacity-30 filter-panel rounded-xl ${className}`}
     >
       <div className="flex items-center justify-between mb-4">
@@ -120,7 +115,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
           Apply Filters
         </Button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
