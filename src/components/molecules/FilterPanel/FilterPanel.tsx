@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { FaFilter, FaTimes } from 'react-icons/fa';
 import Select from '@/components/atoms/Select/Select';
 import Button from '@/components/atoms/Button/Button';
